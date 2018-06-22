@@ -1,0 +1,4 @@
+Directive: can be added as html attribute to change the DOM/styles and more...
+ex: ngIf, ngStyle, ngClass, ngFor
+
+Need to add *before ngIf and ngFor as it changes to DOM structure.
