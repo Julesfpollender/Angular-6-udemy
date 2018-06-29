@@ -1,4 +1,38 @@
-Directive: can be added as html attribute to change the DOM/styles and more...
+# Custom Note through the course
+
+## General Information
+### Directive: can be added as html attribute to change the DOM/styles and more...
 ex: ngIf, ngStyle, ngClass, ngFor
 
-Need to add *before ngIf and ngFor as it changes to DOM structure.
+We are able to create our own Directive
+ps.: Need to add * before ngIf and ngFor as it changes to DOM structure.
+
+
+## Communication Inside component
+- Property binding: [src]="imagePath"
+- String interpolation:  {{ data }}
+- Event binding: (click)="onClick()"
+- Two-way-binding [(nbModel)="data"]
+- Local reference :
+In html: we can add <input ... #myId> and then pass this element through event like click: (click)="onEventX(myId)" 
+This way, the input element would be accessible in the component function onEventX(data){ ... }  
+To access without passing in function see @ViewChild('selector') seleted: ElementRef
+
+## Communication between components
+### Projecting content from parent
+- In parent: <child><p>Some Content</p><child>
+- In child: <ng-content></ng-content> will output <p>Some Content</p>
+ps.: Can also use local reference with this pattern: see @ContentChild('selector') seleted: ElementRef
+
+### How to pass props to child:
+To be able to bind to our own property (and pass info to the child component), we need to had @Input() in from of the property
+- In parent html => <componentChild [element]="elementToPass"></componentChild> 
+- In child component => need to define the property: @Input() element : string;
+
+### How child communicated to parent
+We need to bind to event (child event) in the parent
+- In parent html => <componentChild (eventX)="eventXReceive($event)"></componentChild> 
+- In parent component => eventXReceive(data: string){ //DO SOMETHING }
+Then we need to emit event in child
+- In child component => add property accessible from outside: @Output() eventX = new EventEmitter<string>();
+- In child component => onEventX(){ this.eventX.emit("dataToEmit")}
