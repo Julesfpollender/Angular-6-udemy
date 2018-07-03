@@ -9,14 +9,14 @@ ps.: Need to add * before ngIf and ngFor as it changes to DOM structure.
 
 
 ## Communication Inside component
-- Property binding: [src]="imagePath"
-- String interpolation:  {{ data }}
-- Event binding: (click)="onClick()"
-- Two-way-binding [(nbModel)="data"]
+- Property binding: <img [src]="imagePath" /> // Where imagePath is a variable in component
+- String interpolation:  {{ data }} // Where data in defined in component
+- Event binding: (click)="onClick()" // implement method onClick in component class
+- Two-way-binding [(nbModel)="data"] // Where data in defined in component
 - Local reference :
 In html: we can add <input ... #myId> and then pass this element through event like click: (click)="onEventX(myId)" 
 This way, the input element would be accessible in the component function onEventX(data){ ... }  
-To access without passing in function see @ViewChild('selector') seleted: ElementRef
+To access without passing in function see @ViewChild('myId') myIdRef: ElementRef
 
 ## Communication between components
 ### Projecting content from parent
