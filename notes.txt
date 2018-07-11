@@ -1,12 +1,29 @@
-# Custom Note through the course
+# Custom notes through the course
 
-## General Information
-### Directive: can be added as html attribute to change the DOM/styles and more...
-ex: ngIf, ngStyle, ngClass, ngFor
+## Components
+@Component({
+  selector: 'app-component-name',
+  templateUrl: './component-ame.component.html',
+  styleUrls: ['./component-name.component.css']
+})
 
-We are able to create our own Directive
-ps.: Need to add * before ngIf and ngFor as it changes to DOM structure.
+## Directives
+Can be added as html attribute to change the DOM/styles and more...
+Attribute Directives : (ngStyle, ngClass, ...)
+Structural Directives : (ngIf, ngFor ...) Need to add * before as it changes to DOM structure.
 
+### Create our own Directive
+@Directive({
+  selector: '[appSelector]'
+})
+If you need to modify dom element, its better to use the Renderer (Renderer2 from @angular/core).
+@HostBinding and @HostListener is easier way to modify html attributes based on events.
+
+## Services
+Wrap fonctionnality in a services makes it easy to inject into one or many components, so it is centralise, cohesive and easily 
+reusable everywhere we need the fonctionnality. For example, data fetching is good exemple to put in services.
+Need the @Injectable() in component where you need to inject a services.
+To be able to inject, we need to add it into the NgModule providers. *Note: it will be accessible in every child component
 
 ## Communication Inside component
 - Property binding: <img [src]="imagePath" /> // Where imagePath is a variable in component
@@ -16,7 +33,7 @@ ps.: Need to add * before ngIf and ngFor as it changes to DOM structure.
 - Local reference :
 In html: we can add <input ... #myId> and then pass this element through event like click: (click)="onEventX(myId)" 
 This way, the input element would be accessible in the component function onEventX(data){ ... }  
-To access without passing in function see @ViewChild('myId') myIdRef: ElementRef
+To access without passing in function see @ViewChild('myId') myIdRef: ElementRef, where ElementRef is the element where we put the #myId
 
 ## Communication between components
 ### Projecting content from parent
@@ -36,3 +53,8 @@ We need to bind to event (child event) in the parent
 Then we need to emit event in child
 - In child component => add property accessible from outside: @Output() eventX = new EventEmitter<string>();
 - In child component => onEventX(){ this.eventX.emit("dataToEmit")}
+
+### It is also possible to communicate between component through a service.
+- Add the EventEmitter in the service
+- In a component A,  emit the event using the service
+- In a component B,  subscribe to the event using the service
